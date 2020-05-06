@@ -1,12 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Projet-CCI! V1{% endblock %}</title>
+        <script src="https://kit.fontawesome.com/43344efc3e.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">      
+       
         {% block stylesheets %}{% endblock %}
     </head>
+        
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+       
+      <nav class="navbar navbar-expand-lg navbar-light bg-primary  ">
+        <a class="navbar-brand" href="#"><img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link text text-warning " href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+           
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                News
+              </a>
+            </li>
+              <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item text text-warning" href="#">Nouveautés</a>
+                <a class="dropdown-item text text-warning " href="#"> Mise à jour</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text text-warning " href="#"> Communauté </a>
+              </div>
+              <li class="nav-item">
+                <a class="nav-link text text-warning" href="#">Contact</a>
+              </li>
+          </ul>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle bg-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Rules
+                </button>
+                <div class="dropdown-menu text-warning bg-dark" aria-labelledby="dropdownMenuButton ">
+                    <h6>Comment jouer !</h6>
+                    <p >Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
+                </div>
+             </div>
+
+         
+         
+          <ul class="nav justify-content-end">
+              <li class="nav-item bg-dark">
+                <a class="nav-link text-warning  " href="#">Login</a>
+              </li>
+              <li class="nav-item bg-dark">
+                <a class="nav-link " href="#">PLAY NOW</a>
+              </li>
+              <li class="nav-item bg-dark">
+                <a class="nav-link text-warning " href="#">Sign up </a>
+              </li>
+        </ul>
+        </div>
+      </nav>
+      
+
+ {% block body %}{% endblock %}
+
+       
+
+    <footer>
+
+    <div class="card text-center text-light bg-dark">
+        <div class="card-header">
+          <a class="navbar-brand" href="#"><span class="navbar-logo"><img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></span></a>
+
+        
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">World Escap</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="alert-link-secondary"> Contact |</a>
+          <a href="#" class="alert-link-secondary"> A propos |</a>
+
+          <a href="#" class="alert-link-secondary"> Mentions Légales |</a>
+          <a href="#" class="alert-link-secondary"> Politique de confidentialité  |</a>
+
+          
+
+          <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+            <li class="nav-item text-warning"><a class="nav-link" href=""><i class="fa fa-facebook mr-1"></i></a> </li>
+            <li class="nav-item text-warning"><a class="nav-link" href=""><i class="fa fa-twitter"></i></a> </li>
+        </ul>
+
+        
+        </div>
+        <div class="card-footer text-muted">
+          05-05-2020 Vernon team: MVQS
+        </div>
+      </div>
+
+        </footer>
+     {% block javascripts %}{% endblock %}
+
     </body>
 </html>

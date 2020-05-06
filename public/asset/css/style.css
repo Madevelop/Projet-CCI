@@ -1,0 +1,139 @@
+
+
+.dropdown{
+    margin-right: 50px;
+  
+  }
+  .dropdown-menu{
+    padding-left: 5px;
+    font-size: 0.8em;
+  }
+  
+  
+  h2{
+    text-align: center;
+    color: whitesmoke;
+   
+  }
+  body {
+  
+    font-family: sans-serif;
+    background: blue;
+  }
+  img {
+    width: 100%; /* need to overwrite inline dimensions */
+    height: auto;
+  }
+  h2 {
+    margin-bottom: .5em;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1em;
+  }
+  
+  
+  /* hover styles */
+  .location-listing {
+    position: relative;
+  }
+  
+  .location-image {
+    line-height: 0;
+    overflow: hidden;
+  }
+  
+  .location-image img {
+    filter: blur(0px);
+    transition: filter 0.3s ease-in;
+    transform: scale(1.1);
+  }
+  
+  .location-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .5s;
+    background: rgba(90,0,10,0.4);
+    color: white;
+    
+    /* position the text in t’ middle*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .location-listing:hover .location-title {
+    opacity: 1;
+  }
+  
+  .location-listing:hover .location-image img {
+    filter: blur(2px);
+  }
+  
+  
+  /* for touch screen devices */
+  @media (hover: none) { 
+    .location-title {
+      opacity: 1;
+    }
+    .location-image img {
+      filter: blur(2px);
+    }
+  }
+  
+  #conteneur_image{
+   
+    position:absolute;
+    top:360px;
+    width:600px;
+    height:400px;
+    z-index:2;
+    font-size:200%
+    }
+  
+  
+  #shop{
+    background-color: blue;
+    margin-left: 30px;
+    margin-top: 50px;
+   
+    width: 20%;
+    text-align: center;
+    border-left-color: black;
+    border-radius: 20px;
+  }
+      
+  
+  #score{
+    background-color: green;
+    width: 20%;
+    margin-left: 50px;
+    margin-top: 30px;
+    text-align: center;
+    border-left-color: black;
+    border-radius: 20px;
+  }
+      
+footer{
+
+    position:absolute;
+        
+    bottom:0;
+        
+    width:100%;
+        
+    padding-top:50px;
+        
+    height:50px;
+        
+        
+}  
