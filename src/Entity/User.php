@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,7 +42,8 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="datetime")
+     *
+     * @ORM\Column(type="date")
      */
     private $age;
 
@@ -66,9 +68,14 @@ class User implements UserInterface
     private $token;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
+    
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -160,12 +167,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAge(): ?int
+    public function getAge(): ?\DateTimeInterface
     {
         return $this->age;
     }
 
-    public function setAge(int $age): self
+    public function setAge(\DateTimeInterface $age): self
     {
         $this->age = $age;
 
@@ -231,4 +238,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }

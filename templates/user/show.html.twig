@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>User</h1>
-
     <table class="table">
         <tbody>
             <tr>
@@ -29,7 +28,7 @@
             </tr>
             <tr>
                 <th>Age</th>
-                <td>{{ user.age }}</td>
+                <td>{{ user.age|date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>Bp</th>
@@ -49,7 +48,6 @@
             </tr>
         </tbody>
     </table>
-
     <a href="{{ path('user_index') }}">back to list</a>
 
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
