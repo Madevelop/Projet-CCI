@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -22,7 +23,10 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email')
             ->add('pseudo')
-            ->add('age')
+            ->add('age', BirthdayType::class, [
+                'placeholder' => [
+                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
+            ]])
             ->add('avatar', FileType::class)
             ->add('pays', CountryType::class, [
                 'placeholder' => 'pays',
