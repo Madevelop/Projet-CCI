@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+{% block title %}Inscription{% endblock %}
 
-{% block title %}Inscription
-{% endblock %}
-
-{% block body %}
-	<h1>Inscription</h1>
-
-	{{ form_start(registrationForm, {attr: {novalidate: 'novalidate'}}) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.plainPassword) }}
-	{{ form_row(registrationForm.agreeTerms) }}
-	<button class="submit">Enregistrer</button>
-	{{ form_end(registrationForm) }}
-{% endblock %}
+    {% block body %}
+         <h1>Inscription</h1>
+        {{ form_start(registrationForm, {attr: {novalidate: 'novalidate'}}) }}
+            {{ form_row(registrationForm.email, {'label': 'Identifiant','attr':
+            {'placeholder':'Adresse email ...'}}) }}
+            {{ form_row(registrationForm.plainPassword,{'label': 'Mot de passe','attr':
+            {'placeholder':'Entrer votre mot de passe...'}}) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            <button type="submit" class= "btn btn-success">Enregistrer</button>
+        {{ form_end(registrationForm) }}
+    {% endblock %}
