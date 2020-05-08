@@ -15,9 +15,21 @@
     {% endblock %}
   </head>
   <header>
+  {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div>
+                <a  href="{{ path('app_register') }}">S'inscrire</a>
+            </div>
+			
+{% endif %}
+{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <div>
+                <a  href="{{ path('app_login') }}">Se connecter</a>
+            </div>
+			
+{% endif %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
       <p>
-        Email: {{ app.user.pseudo }}
+        bonjour: {{ app.user.pseudo }}
       </p>
     {% endif %}
   </header>
