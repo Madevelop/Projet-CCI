@@ -68,10 +68,16 @@ class User implements UserInterface
     private $token;
 
     /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
-    
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -239,4 +245,19 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
 }

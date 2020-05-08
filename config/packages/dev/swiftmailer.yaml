@@ -1,0 +1,19 @@
+# See https://symfony.com/doc/current/email/dev_environment.html
+swiftmailer:
+    # send all emails to a specific address
+    #delivery_addresses: ['mathilde.ponsar@gmail.com']
+    disable_delivery: true
+    #url: '%env(MAILER_URL)%'
+    transport:        gmail
+    username:         mvsq.wordlescape@gmail.com
+    password:         Symfony4
+    host:             localhost
+    port:             465
+    encryption:       ssl
+    auth-mode:        login
+   # spool: { type: 'memory' }
+    stream_options:
+        ssl:
+            allow_self_signed: true
+            verify_peer: false
+            verify_peer_name: false   
