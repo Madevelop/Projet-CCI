@@ -1,43 +1,31 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Produit index{% endblock %}
+{% block title %}Les produits
+{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+    <div class="bg-light p-3">
+        <h1>Les produits</h1>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prix</th>
-                <th>Categorie</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
         {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.nom }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.categorie }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.image }}</td>
-                <td>
-                    <a href="{{ path('produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="col-4 mt-4">
+                <div class="border border-dark rounded p-2 clearfix">
+                    <h2>
+                        {{ produit.nom}}
+                        -
+                        {{ produit.prix}}
+                        €
+                    </h2>
+                    <img class="img-fluid rounded" src="{{ produit.image }}" alt="Image de {{ produit.nom }}">
+                    <hr>
+                    <a href="{{ path('cart_add', {'id':produit.id}) }}" class="btn btn-success float-right">
+                        <i class="fas fa-shopping-cart mr-1"></i>
+                        Ajouter
+                    </a>
+                </div>
 
-    <a href="{{ path('produit_new') }}">Create new</a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
