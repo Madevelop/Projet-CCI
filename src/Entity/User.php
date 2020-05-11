@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,7 +42,8 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="integer")
+     *
+     * @ORM\Column(type="date")
      */
     private $age;
 
@@ -64,6 +66,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
+
+    /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_at;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -155,12 +173,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAge(): ?int
+    public function getAge(): ?\DateTimeInterface
     {
         return $this->age;
     }
 
-    public function setAge(int $age): self
+    public function setAge(\DateTimeInterface $age): self
     {
         $this->age = $age;
 
@@ -213,5 +231,33 @@ class User implements UserInterface
         $this->token = $token;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
     }
 }
