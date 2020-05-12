@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
     <head>
         <meta charset="UTF-8">
         <title>
@@ -12,9 +11,9 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ=" crossorigin="anonymous"/>
         {% endblock %}
     </head>
-    <body>
+    <header> 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Boutique</a>
+            <a class="navbar-brand" href=" {{ path('homepage') }}">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,60 +21,37 @@
             <div class="collapse navbar-collapse" id="navbarColor03">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('produit_index') }}">Produits
-                        </a>
+                        <a class="nav-link" href="{{ path('produit_index') }}">Produits</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('cart_index') }}">Panier</a>
                     </li>
+                    {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <li class="nav-item">
+                            <a class="nav-link"  href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+			
+                    {% endif %}
+                    <li class="nav-item">
+                    {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <a class="nav-link"  href="{{ path('app_register') }}">S'inscrire</a>
+                    {% endif %}
+                    </li>
                 </ul>
             </div>
         </nav>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      <p>
+        bonjour: {{ app.user.pseudo }}
+      </p>
+    {% endif %}
+
+  </header>
+    <body>
+       
 
         <div class="container pt-5"> {% block body %}{% endblock %}
             </div>
             {% block javascripts %}{% endblock %}
         </body>
     </html>
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous" />
-    <title>
-      {% block title %}
-        Welcome!
-      {% endblock %}
-    </title>
-    {% block stylesheets %}
-    {% endblock %}
-  </head>
-  <header>
-  {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <div>
-                <a  href="{{ path('app_register') }}">S'inscrire</a>
-            </div>
-			
-{% endif %}
-{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <div>
-                <a  href="{{ path('app_login') }}">Se connecter</a>
-            </div>
-			
-{% endif %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-      <p>
-        bonjour: {{ app.user.pseudo }}
-      </p>
-    {% endif %}
-  </header>
-  <body>
-    {% block body %}
-    {% endblock %}
-    {% block javascripts %}
-    {% endblock %}
-  </body>
-</html>
->>>>>>> develop
