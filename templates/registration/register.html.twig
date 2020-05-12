@@ -4,12 +4,63 @@
 
 {% block body %}
     <h1>Register</h1>
+<form method="post">
+ {{ form_start(registrationForm) }}
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-    {{ form_start(registrationForm) }}
+   
         {{ form_row(registrationForm.email) }}
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>   
+        
         {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>   
+         
+         <div class="custom-file">
+            <input type="file" class="custom-file-input" id="customFile" />
+            <label class="custom-file-label" for="customFile">
+                <a href="#">
+                    <img width="30" height="30" src="{{ asset('image/Avatar/.jpg') }}" alt="avatar">choisissez votre avatar </a> 
+            </label>
+        </div>
 
-        <button class="btn">Register</button>
+        {{ form_row(registrationForm.agreeTerms) }}
+        <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}" >
+
+        <div class="col-md-3 mb-3">
+                 <label for="validationTooltip04">
+                         State
+                </label>
+                <select class="custom-select" id="validationTooltip04" required>
+                    <option selected disabled value="">
+                          Choose...
+                     </option>
+                     <option>
+                          ...
+                    </option>
+                </select>
+
+            <div class="invalid-tooltip">
+                     Please select a valid state.
+            </div>
+        </div>
+
+
+         <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+        </button>
+        
     {{ form_end(registrationForm) }}
+
+
 {% endblock %}
