@@ -74,7 +74,7 @@ class User implements UserInterface
     private $resetToken;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $created_at;
 

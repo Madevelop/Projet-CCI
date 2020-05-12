@@ -25,15 +25,15 @@ class ProduitController extends AbstractController
         ]);
     }
     /**
-     * @Route("/", name="produit_shop", methods={"GET"})
-     *//*
+     * @Route("/admin", name="produit_index_admin", methods={"GET"})
+     */
     public function shop(ProduitRepository $produitRepository): Response
     {
-        return $this->render('produit/shop.html.twig', [
-            'produit' => $produitRepository->findAll(),
+        return $this->render('produit/index_admin.html.twig', [
+            'produits' => $produitRepository->findAll(),
         ]);
     }
-*/
+
     /**
      * @Route("/new", name="produit_new", methods={"GET","POST"})
      */
@@ -78,7 +78,7 @@ class ProduitController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('produit_index');
+            return $this->redirectToRoute('produit_index_admin');
         }
 
         return $this->render('produit/edit.html.twig', [
