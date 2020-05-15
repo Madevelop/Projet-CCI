@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos Articles{% endblock %}
+{% block body %}   
+            <section>
+             {% for article in articles %}
+             <div class="card">
+                <h5 class="card-header">{{ article.titre }}</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">By {{ article.auteur }} </h5>
+                        <p class="card-text">{{ article.contenu }}</p>
+                        <a href="{{ path('article_show', {'id': article.id}) }}" class="btn btn-primary">Show</a>
+                    </div>
+                    <footer class="blockquote-footer"><cite title="Source Title">{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</cite></footer>
+                </div>
+            </section>
+            {% else %}
+           
+        {% endfor %}
+{% endblock %}
+ 

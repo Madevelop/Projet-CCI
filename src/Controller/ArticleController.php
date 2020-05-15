@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/", name="article_index", methods={"GET"})
+     * @Route("/admin", name="article_index", methods={"GET"})
      */
     public function index(ArticleRepository $articleRepository): Response
     {
@@ -25,6 +25,17 @@ class ArticleController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/", name="article_articles", methods={"GET"})
+     */
+    public function article(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articleRepository->findAll(),
+            
+        ]);
+    }
+    
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
