@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Projet-CCI! V1{% endblock %}</title>
+        <title>{% block title %}Projet-CCI{% endblock %}</title>
       
         {% block stylesheets %}
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">      
@@ -12,14 +12,16 @@
       {% endblock %}
         
     </head>
+ 
         
   <body>
+                                                            <!--Section navbar!-->
       {% block header %}
+
       <header> 
         <nav class="navbar navbar-expand-lg navbar-light bg-primary  ">
             <div id="logo">
-                    <!-- ne pas oublier de mettre ici à la place de href # le chemin path('home') oublies pas doubles acollades de chaque coté pour aller vers img logo-->      
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ path('homepage') }}">
                     <img src="{{ asset('image/logoW(Copy)(2).png') }}" alt="">
                 </a>
             </div> 
@@ -30,74 +32,75 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                    <a class="nav-link text text-warning " href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text text-warning " href="{{ path('homepage') }}">Home <span class="sr-only">(current)</span></a>
                     </li>
 
-
                     <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            News
-                            </a>
-                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                        <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        News
+                        </a>
+                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown"> 
+                                
                             <a class="dropdown-item text text-warning" href="#">
                                 Nouveautés
                             </a>
                             <a class="dropdown-item text text-warning " href="#">
-                            Mise à jour
-                                </a>
-                            <div class="dropdown-divider">
+                                Mise à jour
+                            </a>
+                            <div class="dropdown-divider"></div>
                                 <a class="dropdown-item text text-warning " href="#">
-                                    Communauté
+                                Communauté
                                 </a>
-                                </div>  
-                        </li> 
-                                    
+                                
+                        </div>
                     
+                    </li> 
                         <li class="nav-item">
+                            <a class="nav-link text text-warning " href="#">Shop <span class="sr-only">(current)</span></a>
+                        </li> 
+                        <li> 
+                            <a class="nav-link text text-warning " href="#">Score <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li>  
                             <a class="nav-link text text-warning" href="#">Contact</a>
-                        </li>       
+                        </li> 
 
-                    </ul>  
-                </div>            
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rules
+                            </a>
+                            <div class="dropdown-menu bg-dark justify-content-center" aria-labelledby="navbarDropdown"> 
+                                
+                                <p class="dropdown-item text bg-dark text-warning " >
+                                    Comment jouer !
+                                </p>
+                                <div class="dropdown-divider"></div>
+                                    <p  class="bg-dark text-warning">Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
+                            </div>
+                        </li>
 
+                </ul>             
             </div>
-            
+                <ul class="nav-link-right breadcrumb bg-dark btn btn-warning">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="breadcrumb-item bg-dark"> {{ app.user.prenom }} ||<a class=" text-warning  "href="#">logout</a></li>
+                    {% else %}
+                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">login</a></li>
+                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">sign up</a></li>
+                    {% endif %}
+                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">PLAY NOW</a></li>
 
-            <div class="dropdown">
-                <button  dropdown-toggle bg-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Rules
-                </button>
-                <div class="dropdown-menu bg-dark justify-content-center " aria-labelledby="dropdownMenuButton ">
-                    <p class="commentjouer text-warning ">Comment jouer !</p>
-                    <p  class="bg-dark text-warning">Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
-                </div>
-            </div>
-
-            <ul class="nav justify-content-end">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li> {{ app.user.prenom }} || <a href="{{ path('app_logout')}}">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item bg-dark">
-                    <a class="nav-link text-warning  " href="login.html">Login</a>
-                </li>
-                <li class="nav-item bg-dark">
-                    <a class="nav-link text-warning " href="#">Sign up </a>
-                </li>
-                {% endif %}
-
-                <li class="nav-item bg-dark">
-                <a class="nav-link " href="#">PLAY NOW</a>
-                </li>
-            
-            </ul>
-            </div>
+                </ul>
+    
         </nav>
-        </header> 
+    </header> 
+    {% endblock  %}
         
-        {% endblock %} 
+        {% block body %}{% endblock  %}
 
-      {% block body %}{% endblock %}
+     
+    
+     
 
         {% block footer %}
       <!--FOOTER-->
@@ -117,7 +120,7 @@
                     </a>
                     <a href="#" class="alert-link-secondary"> A propos |
                     </a>
-                    <a href="#" class="alert-link-secondary"> Mentions Légales |
+                    <a href="{{ path('mentions') }}" class="alert-link-secondary"> Mentions Légales |
                     </a>
                     <a href="#" class="alert-link-secondary"> Politique de confidentialité  |
                     </a>
@@ -141,6 +144,7 @@
         </section>
       </footer>
           {% endblock %}
+
           {% block javascripts %}
                 <script src="https://kit.fontawesome.com/43344efc3e.js" crossorigin="anonymous"></script>
                 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>

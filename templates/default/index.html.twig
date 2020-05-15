@@ -2,9 +2,11 @@
 
 {% block title %}Homepage{% endblock %}
 
+
 {% block body %}
 
-<div class="container">
+
+  <div class="container">
         <div>
 
         </div>
@@ -18,11 +20,11 @@
             <article id="3685" class="location-listing">
         
               <a class="location-title" href="#">
-                            San Francisco                       </a>
+                            Map San Francisco</a>
         
               <div class="location-image">
                 <a href="#">
-                                <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/san-fransisco-768x432.jpg" alt="san francisco">      </a>
+                  <img width="300" height="169" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/san-fransisco-768x432.jpg" alt="san francisco">      </a>
         
               </div>
         
@@ -31,7 +33,7 @@
             <article id="3688" class="location-listing">
         
               <a class="location-title" href="#">
-                            London                      </a>
+                            Map London</a>
         
               <div class="location-image">
                 <a href="#">
@@ -44,7 +46,7 @@
             <article id="3691" class="location-listing">
         
               <a class="location-title" href="#">
-                            New York                        </a>
+                          Map New York  </a>
         
               <div class="location-image">
                 <a href="#">
@@ -54,22 +56,15 @@
           </div>
         </div>
      
-          <!-- end grid container -->
-        <section id="image">
-          <img src="{{ asset('image/rectanglevert.jpg') }}" class="img-fluid" alt="Responsive image">
-          <div id="conteneur_image">
-              <div id="shop">
-                 <a href="" class="button">SHOP</a>
-              </div>
-              <div id="score">
-                  <a href="" class="button">SCORE</a>
-              </div>
-          </div>
-     
-        </div> 
-    </section>  
+          <!-- container video -->
+
+        <div class="video ">
+
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" width="100%" height="300"   src="https://www.youtube.com/embed/bC_WTcQCASo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>    
+      </div>  
       
 </body>
 
-
-{% endblock %}
+{% endblock  %}

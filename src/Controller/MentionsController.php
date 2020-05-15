@@ -12,7 +12,7 @@ class MentionsController extends AbstractController
      */
     public function index()
     {
-        return $this->render('mentions/index.html.twig', [
+        return $this->render('default/mentionslegales.html.twig', [
             'controller_name' => 'MentionsController',
         ]);
     }
