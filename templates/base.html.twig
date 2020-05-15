@@ -42,7 +42,7 @@
 
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									News
+								<i class="far fa-newspaper"></i>News
 								</a>
 								<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
 
@@ -52,6 +52,10 @@
 									<a class="dropdown-item text text-warning " href="#">
 										Mise à jour
 									</a>
+                                    <a class="dropdown-item text text-warning " href="{{ path('admin') }}">
+										Admin
+									</a>
+
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item text text-warning " href="#">
 										Communauté
@@ -71,12 +75,12 @@
 								</a>
 							</li>
 							<li>
-								<a class="nav-link text text-warning" href="#">Contact</a>
+								<a class="nav-link text text-warning" href="#"><span class="fa fa-comment"></span>Contact</a>
 							</li>
 
 							<li class="nav-item dropdown">
 								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Rules
+								<i class="fas fa-scroll"></i>	Rules
 								</a>
 								<div class="dropdown-menu bg-dark justify-content-center" aria-labelledby="navbarDropdown">
 
@@ -84,7 +88,7 @@
 										Comment jouer !
 									</p>
 									<div class="dropdown-divider"></div>
-									<p class="bg-dark text-warning">Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
+									<p class="bg-dark text-warning">Le personnage doit éviter les obsstacles afin de <br>récupérer un maximum de pièce<br>ainsi il pourra accéder au shop.</p>
 								</div>
 							</li>
 
@@ -98,10 +102,10 @@
 							</li>
 						{% else %}
 							<li class="breadcrumb-item bg-dark">
-								<a class=" text-warning  " href="#">login</a>
+								<a class=" text-warning  " href="#"><i class="fas fa-gamepad"></i>login</a>
 							</li>
 							<li class="breadcrumb-item bg-dark">
-								<a class=" text-warning  " href="#">sign up</a>
+								<a class=" text-warning  " href="{{ path('app_register') }}"><span class="fa fa-pencil"></span>sign up</a>
 							</li>
 						{% endif %}
 						<li class="breadcrumb-item bg-dark">
@@ -121,7 +125,7 @@
 			<!--FOOTER-->
 			<footer>
 				<section>
-					<div class=" text-center text-light bg-dark">
+					<div class=" text-center text-warning bg-dark">
 						<div class="">
 							<a class="navbar-brand" href="#">
 								<span class="navbar-logo">
