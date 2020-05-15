@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
@@ -25,12 +26,12 @@ class SecurityController extends AbstractController
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
-
+       
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+            
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
@@ -44,12 +45,13 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/forgottenPassword", name="app_forgotten_password")
+     * @var $user User 
      */
     public function forgottenPassword(
-        Request $request,
+        Request $request, 
         UserPasswordEncoderInterface $encoder,
         \Swift_Mailer $mailer,
-        TokenGeneratorInterface $tokenGenerator
+        TokenGeneratorInterface $tokenGenerator,UserRepository $pseudo
     ): Response {
 
         if ($request->isMethod('POST')) {
@@ -58,7 +60,6 @@ class SecurityController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
-            /* @var $user User */
 
             if ($user === null) {
                 $this->addFlash('danger', 'Email Inconnu');
@@ -66,7 +67,7 @@ class SecurityController extends AbstractController
             }
 
             $token = $tokenGenerator->generateToken();
-            
+
             try {
                 $user->setResetToken($token);
                 $entityManager->flush();
@@ -77,19 +78,21 @@ class SecurityController extends AbstractController
 
             $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $message = (new \Swift_Message('Forgot Password'))
+            $message = (new \Swift_Message('Réinitialisation du mot de passe'))
                 ->setFrom('mvsq.wordlescape@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "blablabla voici le token pour reseter votre mot de passe : " . $url,
-                    'text/html'
+                    $this->renderView(
+                        // templates/hello/email.txt.twig
+                        'emails/email.html.twig',
+                        ['lien' => $url]
+                    )
                 );
-
             $mailer->send($message);
 
             $this->addFlash('notice', 'Mail envoyé');
 
-           // return $this->redirectToRoute('homepage');
+            // return $this->redirectToRoute('homepage');
         }
 
         return $this->render('security/forgotten_password.html.twig');
@@ -115,7 +118,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('notice', 'Mot de passe mis à jour');
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('app_login');
         } else {
 
             return $this->render('security/reset_password.html.twig', ['token' => $token]);

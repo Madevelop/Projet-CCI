@@ -18,6 +18,10 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
+
+        $avatar = \Faker\Factory::create();
+        $avatar->addProvider(new \Bezhanov\Faker\Provider\Avatar($avatar));
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -29,6 +33,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            if (empty($user->getAvatar())) {
+                $user->setAvatar($avatar->avatar());
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
