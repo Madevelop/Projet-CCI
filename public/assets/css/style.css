@@ -21,7 +21,7 @@ h2 {
 body {
     font-family: sans-serif;
     background: rgba(63, 139, 240, 0.993);
-    width: 100%;
+    width: 100vw;
 }
 
 img {
@@ -97,7 +97,7 @@ img {
 .video {
     padding-top: 30px;
     width: auto;
-    height: 200px;
+    margin-bottom: 30px;
     margin-right: 0;
     margin-left: 0;
 }
@@ -106,9 +106,9 @@ img {
 /*Section :footer */
 
 footer {
+    position: fixed;
     bottom: 0;
     width: 100%;
-    padding-top: 0px;
     height: 50px;
 }
 

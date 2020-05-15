@@ -1,159 +1,185 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Projet-CCI{% endblock %}</title>
-      
-        {% block stylesheets %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">      
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-      {% endblock %}
-        
-    </head>
- 
-        
-  <body>
-                                                            <!--Section navbar!-->
-      {% block header %}
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Projet-CCI
+			{% endblock %}
+		</title>
 
-      <header> 
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary  ">
-            <div id="logo">
-                <a class="navbar-brand" href="{{ path('homepage') }}">
-                    <img src="{{ asset('image/logoW(Copy)(2).png') }}" alt="">
-                </a>
-            </div> 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                    <a class="nav-link text text-warning " href="{{ path('homepage') }}">Home <span class="sr-only">(current)</span></a>
-                    </li>
+		{% block stylesheets %}
+			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+			<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+		{% endblock %}
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        News
-                        </a>
-                        <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown"> 
-                                
-                            <a class="dropdown-item text text-warning" href="#">
-                                Nouveautés
-                            </a>
-                            <a class="dropdown-item text text-warning " href="#">
-                                Mise à jour
-                            </a>
-                            <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text text-warning " href="#">
-                                Communauté
-                                </a>
-                                
-                        </div>
-                    
-                    </li> 
-                        <li class="nav-item">
-                            <a class="nav-link text text-warning " href="#">Shop <span class="sr-only">(current)</span></a>
-                        </li> 
-                        <li> 
-                            <a class="nav-link text text-warning " href="#">Score <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li>  
-                            <a class="nav-link text text-warning" href="#">Contact</a>
-                        </li> 
-
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Rules
-                            </a>
-                            <div class="dropdown-menu bg-dark justify-content-center" aria-labelledby="navbarDropdown"> 
-                                
-                                <p class="dropdown-item text bg-dark text-warning " >
-                                    Comment jouer !
-                                </p>
-                                <div class="dropdown-divider"></div>
-                                    <p  class="bg-dark text-warning">Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
-                            </div>
-                        </li>
-
-                </ul>             
-            </div>
-                <ul class="nav-link-right breadcrumb bg-dark btn btn-warning">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="breadcrumb-item bg-dark"> {{ app.user.prenom }} ||<a class=" text-warning  "href="#">logout</a></li>
-                    {% else %}
-                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">login</a></li>
-                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">sign up</a></li>
-                    {% endif %}
-                    <li class="breadcrumb-item bg-dark"><a class=" text-warning  "href="#">PLAY NOW</a></li>
-
-                </ul>
-    
-        </nav>
-    </header> 
-    {% endblock  %}
-        
-        {% block body %}{% endblock  %}
-
-     
-    
-     
-
-        {% block footer %}
-      <!--FOOTER-->
-      <footer>
-        <section>
-          <div class="card text-center text-light bg-dark">
-                <div class="card-header">
-                    <a class="navbar-brand" href="#"><span class="navbar-logo">
-                      <img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></span>
-                    </a>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">World Escap</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="alert-link-secondary"> Contact |
-                    </a>
-                    <a href="#" class="alert-link-secondary"> A propos |
-                    </a>
-                    <a href="{{ path('mentions') }}" class="alert-link-secondary"> Mentions Légales |
-                    </a>
-                    <a href="#" class="alert-link-secondary"> Politique de confidentialité  |
-                    </a>
-                </div>
-                  <div class="socials">
-                    <h5>
-                      <i>Suivez nous sur les réseaux sociaux !</i>
-                    </h5>
-
-                    <ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-                        <li class="nav-item text-warning"><a class="nav-link" href=""><i class="fa fa-facebook mr-1"></i></a> </li>
-                        <li class="nav-item text-warning"><a class="nav-link" href=""><i class="fa fa-twitter"></i></a> </li>
-                    </ul>
-                    <div class="card-footer text-muted">
-                        05-05-2020 Vernon team: MVQS
-                    </div>
-                  </div>
+	</head>
 
 
-          </div>
-        </section>
-      </footer>
-          {% endblock %}
+	<body>
+		<!--Section navbar!-->
+		{% block header %}
 
-          {% block javascripts %}
-                <script src="https://kit.fontawesome.com/43344efc3e.js" crossorigin="anonymous"></script>
-                <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+			<header>
+				<nav class="navbar navbar-expand-lg navbar-light bg-primary  ">
+					<div id="logo">
+						<a class="navbar-brand" href="{{ path('homepage') }}">
+							<img src="{{ asset('image/logoW(Copy)(2).png') }}" alt="">
+						</a>
+					</div>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link text text-warning " href="{{ path('homepage') }}">Home
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									News
+								</a>
+								<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+
+									<a class="dropdown-item text text-warning" href="#">
+										Nouveautés
+									</a>
+									<a class="dropdown-item text text-warning " href="#">
+										Mise à jour
+									</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item text text-warning " href="#">
+										Communauté
+									</a>
+
+								</div>
+
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text text-warning " href="#">Shop
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li>
+								<a class="nav-link text text-warning " href="#">Score
+									<span class="sr-only">(current)</span>
+								</a>
+							</li>
+							<li>
+								<a class="nav-link text text-warning" href="#">Contact</a>
+							</li>
+
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Rules
+								</a>
+								<div class="dropdown-menu bg-dark justify-content-center" aria-labelledby="navbarDropdown">
+
+									<p class="dropdown-item text bg-dark text-warning ">
+										Comment jouer !
+									</p>
+									<div class="dropdown-divider"></div>
+									<p class="bg-dark text-warning">Le personnage doit éviter les obsstacles etc ggdhdhdhd<br>dsfsfsfsfsfsfsfsf<br>fdfdfdfdfdfddf.</p>
+								</div>
+							</li>
+
+						</ul>
+					</div>
+					<ul class="nav-link-right breadcrumb bg-dark btn btn-warning">
+						{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							<li class="breadcrumb-item bg-dark">
+								{{ app.user.prenom }}
+								||<a class=" text-warning  " href="#">logout</a>
+							</li>
+						{% else %}
+							<li class="breadcrumb-item bg-dark">
+								<a class=" text-warning  " href="#">login</a>
+							</li>
+							<li class="breadcrumb-item bg-dark">
+								<a class=" text-warning  " href="#">sign up</a>
+							</li>
+						{% endif %}
+						<li class="breadcrumb-item bg-dark">
+							<a class=" text-warning  " href="#">PLAY NOW</a>
+						</li>
+
+					</ul>
+
+				</nav>
+			</header>
+		{% endblock  %}
+
+		{% block body %}{% endblock  %}
+
+
+		{% block footer %}
+			<!--FOOTER-->
+			<footer>
+				<section>
+					<div class=" text-center text-light bg-dark">
+						<div class="">
+							<a class="navbar-brand" href="#">
+								<span class="navbar-logo">
+									<img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></span>
+							</a>
+						</div>
+
+						<div class="">
+							<h5 class="">World Escap</h5>
+							<p class="">With supporting text below as a natural lead-in to additional content.</p>
+							<a href="#" class="alert-link-secondary">
+								Contact |
+							</a>
+							<a href="#" class="alert-link-secondary">
+								A propos |
+							</a>
+							<a href="{{ path('mentions') }}" class="alert-link-secondary">
+								Mentions Légales |
+							</a>
+							<a href="#" class="alert-link-secondary">
+								Politique de confidentialité  |
+							</a>
+						</div>
+						<div class="socials">
+							<h5>
+								<i>Suivez nous sur les réseaux sociaux !</i>
+							</h5>
+
+							<ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+								<li class="nav-item text-warning">
+									<a class="nav-link" href="">
+										<i class="fa fa-facebook mr-1"></i>
+									</a>
+								</li>
+								<li class="nav-item text-warning">
+									<a class="nav-link" href="">
+										<i class="fa fa-twitter"></i>
+									</a>
+								</li>
+							</ul>
+							<div class="card-footer text-muted">
+								05-05-2020 Vernon team: MVQS
+							</div>
+						</div>
+					</div>
+				</section>
+			</footer>
+		{% endblock %}
+
+		{% block javascripts %}
+			<script src="https://kit.fontawesome.com/43344efc3e.js" crossorigin="anonymous"></script>
+			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-                <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-                <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
 
-          {% endblock %}
+		{% endblock %}
 
-  </body>
+	</body>
 </html>
