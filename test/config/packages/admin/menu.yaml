@@ -1,0 +1,9 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'News'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'User', icon: 'inbox', label: 'Utilisateur'}
+
+

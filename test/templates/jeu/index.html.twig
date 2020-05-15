@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu index{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex justify-content-center align-items-center">
+        <h1>LEADERBOARD WORLDESCAPE</h1>
+    </div>
+
+
+<div class="row  mt-4">
+    <div class="col-10 mx-auto">
+    <table class="table">
+        <thead class="text-center">
+            <tr class="bg-light">
+                <th>Rank</th>
+                <th>Pseudo</th>
+                <th>Avatar</th>
+                <th>Date</th>
+                <th>Rank</th>
+                <th>Score</th>
+                <th>Profil</th>
+                <!-- <th>actions</th> -->
+            </tr>
+        </thead>
+        <tbody class="text-center">
+      
+        {% for jeu in score %}
+         {% set num = loop.index - 1 %}
+            <tr>
+                <td class="align-middle">{{ num + 1 }}</td>
+                <td class="align-middle">{{ jeu.user.pseudo }}</td>
+                 <td class="align-middle"><img src="{{ asset('images/avatar/')}}{{ jeu.user.avatar }}" style="width:auto; height:50px;"></td>
+                 <td class="align-middle">{{ jeu.user.createdAt ? jeu.user.createdAt|date('d/m/Y') : '' }}</td>
+                 {% if jeu.score <= 60 %}
+                <td class="align-middle"><img src="{{ asset('images/world_escape/rank/2.png')}}"  style="width:auto; height:50px;"></td>
+                {% elseif jeu.score > 60 and jeu.score < 100 %}
+                <td class="align-middle"><img src="{{ asset('images/world_escape/rank/3.png')}}"  style="width:auto; height:50px;"></td>
+                {% else %}
+                <td class="align-middle"><img src="{{ asset('images/world_escape/rank/1.png')}}"  style="width:auto; height:50px;"></td>
+                {% endif %}
+                <td class="align-middle">{{ jeu.score }}</td>
+                <td class="align-middle"><a href="{{ path('user_show', {'id': jeu.user.id}) }}"<button type="button" class="btn btn-outline-success">Profil</button> </td>
+             </div>
+</div>
+                <!--<td>
+                    <a href="{{ path('jeu_show', {'id': jeu.id}) }}">show</a>
+                    <a href="{{ path('jeu_edit', {'id': jeu.id}) }}">edit</a>
+                </td>-->
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   <!-- <a href="{{ path('jeu_new') }}">Create new</a> -->
+{% endblock %}

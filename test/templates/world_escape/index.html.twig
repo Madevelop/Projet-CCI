@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu index
+{% endblock %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('asset/css/kandi.css') }}">
+    
+    {% endblock %}
+
+    {% block body %}
+
+        <div class="lol">
+            <div class="wrapper mx-auto mt-5">
+                <div class="sound sound-off"></div>
+                <div id="menu">
+                    <div id="progress">
+                        <div id="percent">Downloading:
+                            <span id="p"></span>
+                        </div>
+                        <progress id="progress-bar" value="0"></progress>
+                    </div>
+                    <div id="main">
+                        <h1>Endless Runner</h1>
+                        <ul>
+                            <li><a href="javascript:void(0)" class="button play">Start Game</a></li>
+                            <li><a href="javascript:void(0)" class="button credits">Credits</a></li>
+                        </ul>
+                    </div>
+                    <div id="credits">
+                        <ul>
+                            <li class="artwork">Character design and art:
+                                <a href="http://www.acrylicana.com/">Mary Winkler</a>
+                            </li>
+                            <li class="artwork">Walk cycle animation:
+                                <a href="http://vimeo.com/hellostudios">Adam Everett Miller</a>
+                            </li>
+                            <li class="artwork">Platformer tiles:
+                                <a href="http://www.kenney.nl/">Kenney</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="music">Game music:
+                                <a href="http://opengameart.org/content/jump-and-run-8-bit">bart</a>
+                            </li>
+                            <li class="music">Jump sound effect:
+                                <a href="http://opengameart.org/content/platformer-jumping-sounds">dklon</a>
+                            </li>
+                            <li class="music">Game over music:
+                                <a href="http://opengameart.org/content/lose-music-3">remaxim</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li class="developer">Developer:
+                                <a href="http://blog.sklambert.com/">Steven Lambert</a>
+                            </li>
+                        </ul>
+                        <a href="javascript:void(0)" class="button back">Back</a>
+                    </div>
+                </div>
+           
+                <canvas id="canvas" width="800" height="480" style=" width:61vw; height:70vh;">
+          
+                    <p>You're browser does not support the required functionality to play this game.</p>
+                    <p>Please update to a modern browser such as
+                        <a href="www.google.com/chrome/‎">Google Chrome</a>
+                        to play.</p>
+                </canvas>
+                <div id="game-over">
+                    <h2>You ran
+                        <span id="score"></span>
+                        meters!</h2>
+                    <button class="js-score" id="score1"></button>
+
+
+                    <a href="javascript:void(0)" class="button restart">Try again?</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal-body" id="modal-ajax"></div>
+
+
+        <!-- <p id="textAjax"></p> -->
+
+        {% block javascripts %}
+<script src="{{ asset('asset/js/jquery.2.1.1.min.js') }}"></script>
+            <script src="{{ asset('asset/js/kandi.js') }}"></script>
+            
+
+
+            <script>
+
+
+                $('#score1').on('click', function (e) {
+                    e.preventDefault();
+                    var idSelect = $('this').innerHTML;
+                    var idSelect = document.getElementById('score1').innerHTML;
+            
+                    $.ajax({
+                        url: '{{ path('ajax_action') }}',
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            "idSelect": idSelect
+                        },
+                        async: true,
+                        success: function (data) { // $('#textAjax').text(data.info);
+                        }
+
+                    })
+                    return false;
+                });
+            </script>
+        {% endblock %}
+
+    {% endblock %}
