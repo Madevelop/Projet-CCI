@@ -5,14 +5,13 @@
 {% block body %}
     <h1>Contact index</h1>
 
-    <table class="table">
+    <table class="table " >
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Username</th>
                 <th>Email</th>
+                <th>Content</th>
                 <th>Created_at</th>
-                <th>Password</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,10 +19,9 @@
         {% for contact in contacts %}
             <tr>
                 <td>{{ contact.id }}</td>
-                <td>{{ contact.username }}</td>
                 <td>{{ contact.email }}</td>
+                <td>{{ contact.content }}</td>
                 <td>{{ contact.createdAt ? contact.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ contact.password }}</td>
                 <td>
                     <a href="{{ path('contact_show', {'id': contact.id}) }}">show</a>
                     <a href="{{ path('contact_edit', {'id': contact.id}) }}">edit</a>
@@ -31,7 +29,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -1,3 +1,5 @@
+/* SECTION NAVBAR */
+
 .dropdown {
     margin-right: 50px;
 }
@@ -7,21 +9,35 @@
     font-size: 0.8em;
 }
 
-h2 {
+body {
+    font-family: sans-serif;
+    background: rgba(211, 50, 240, 0.993);
+    width: 100vw;
+}
+
+
+/* SECTION VIDEO */
+
+.video {
+    padding-top: 30px;
+    width: auto;
+    margin-bottom: 30px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+
+/* SECTION MAP*/
+
+.container h2 {
+    font-weight: bold;
     text-align: center;
-    color: yellow;
-    margin-bottom: .5em;
+    color: rgb(53, 49, 49);
 }
 
 .container {
     justify-content: center;
     width: auto;
-}
-
-body {
-    font-family: sans-serif;
-    background: rgba(63, 139, 240, 0.993);
-    width: 100vw;
 }
 
 img {
@@ -66,7 +82,7 @@ img {
     left: 0;
     opacity: 0;
     transition: opacity .5s;
-    background: rgba(90, 0, 10, 0.4);
+    background: rgba(247, 25, 236, 0.4);
     color: white;
     /* position the text in t’ middle*/
     display: flex;
@@ -94,27 +110,34 @@ img {
     }
 }
 
-.video {
-    padding-top: 30px;
-    width: auto;
-    margin-bottom: 30px;
-    margin-right: 0;
-    margin-left: 0;
+
+/*SECTION FORMULAIRE */
+
+form {
+    background-image: url("https://www.jeuxetcompagnie.fr/wp-content/uploads/2012/03/dessin-enfant-espace.jpg ");
+    width: 50%;
+    margin: auto;
 }
 
 
-/*Section :footer */
+/*SECTION LOGIN*/
+
+
+/*SECTION REGISTER*/
+
+
+/*SECTION FOOTER */
 
 footer {
     position: relative;
     bottom: 0;
     padding-top: 20px;
     width: 100%;
-    height: 30px;
+    height: 20px;
 }
 
 
-/*SECTION : Mentions Légales*/
+/*SECTION : MENTIONS LEGALES*/
 
 .mentionsLegales {
     justify-content: center;
@@ -125,9 +148,6 @@ footer {
 }
 
 .mentionsLegales h1 {
-    color: yellow;
+    color: purple;
     margin-left: 40vw;
 }
-
-
-/*section LOGIN*/

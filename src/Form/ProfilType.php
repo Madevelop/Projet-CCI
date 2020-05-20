@@ -2,18 +2,22 @@
 
 namespace App\Form;
 
-use App\Entity\Contact;
+use App\Entity\Profil;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContactType extends AbstractType
+class ProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('content')
+            ->add('pseudo')
+            ->add('avatar')
+            ->add('rank')
+            ->add('photo')
+            ->add('bonus')
+            ->add('source_point')
             ->add('created_at')
         ;
     }
@@ -21,7 +25,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Contact::class,
+            'data_class' => Profil::class,
         ]);
     }
 }

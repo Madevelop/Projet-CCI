@@ -11,7 +11,9 @@
 
 		{% block stylesheets %}
 			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-			<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+			<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+			<link rel="stylesheet" href="{{ asset('asset/css/style.css') }}" media="screen">
+
 		{% endblock %}
 
 	</head>
@@ -22,10 +24,10 @@
 		{% block header %}
 
 			<header>
-				<nav class="navbar navbar-expand-lg navbar-light bg-primary  ">
+				<nav class="navbar navbar-expand-lg navbar-light bg-dark  ">
 					<div id="logo">
 						<a class="navbar-brand" href="{{ path('homepage') }}">
-							<img src="{{ asset('image/logoW(Copy)(2).png') }}" alt="">
+							<img src="{{ asset('asset/image/logo/purple.jpg') }}" alt="logo">
 						</a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,82 +37,99 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item active">
-								<a class="nav-link text text-warning " href="{{ path('homepage') }}">Home
+								<a class="nav-link text-secondary " href="{{ path('homepage') }}">Home
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 
 							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a class="nav-link dropdown-toggle text text-secondary " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="far fa-newspaper"></i>News
 								</a>
 								<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
 
-									<a class="dropdown-item text text-warning" href="#">
+									<a class="dropdown-item text text-secondary" href="#">
 										Nouveautés
 									</a>
-									<a class="dropdown-item text text-warning " href="#">
+									<a class="dropdown-item text text-secondary " href="#">
 										Mise à jour
 									</a>
-                                    <a class="dropdown-item text text-warning " href="{{ path('admin') }}">
+                                    <a class="dropdown-item text text-secondary " href="{{ path('admin') }}">
 										Admin
 									</a>
 
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-item text text-warning " href="#">
-										Communauté
+									<a class="dropdown-item text text-secondary " href="#">
+										Commentaire
 									</a>
 
 								</div>
 
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text text-warning " href="#">Shop
+								<a class="nav-link text text-secondary " href="#"><i class="fas fa-store"></i>Shop
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 							<li>
-								<a class="nav-link text text-warning " href="#">Score
+								<a class="nav-link text text-secondary " href="#"><i class="fas fa-bullseye"></i>Score
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 							<li>
-								<a class="nav-link text text-warning" href="#"><span class="fa fa-comment"></span>Contact</a>
+								<a class="nav-link text text-secondary " href="#">Profil
+									<span class="sr-only">(current)</span>
+								</a>
 							</li>
 
-							<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle text text-warning " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-scroll"></i>	Rules
-								</a>
-								<div class="dropdown-menu bg-dark justify-content-center" aria-labelledby="navbarDropdown">
+							<li>
+								<a class="nav-link text text-secondary" href="{{ path('contact_index') }}"><span class="fa fa-comment"></span>Contact</a>
+							</li>
 
-									<p class="dropdown-item text bg-dark text-warning ">
-										Comment jouer !
-									</p>
-									<div class="dropdown-divider"></div>
-									<p class="bg-dark text-warning">Le personnage doit éviter les obsstacles afin de <br>récupérer un maximum de pièce<br>ainsi il pourra accéder au shop.</p>
+							<!-- Button trigger modal -->
+							<li>
+							<a class="nav-link text text-secondary"  data-toggle="modal" data-target="#exampleModalCenter"><i class="fas fa-scroll"></i>
+							Rules
+							</a>
+							</li>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content text-light bg-secondary">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">Comment jouer!</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
-							</li>
-
+								<div class="modal-body">
+									Le personnage doit éviter les obsstacles afin de <br>récupérer un maximum de pièce<br>ainsi il pourra accéder au shop.Amuses toi!!
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
+								</div>
+							</div>
+							</div>
+							
 						</ul>
 					</div>
-					<ul class="nav-link-right breadcrumb bg-dark btn btn-warning">
+
+					<ul class="nav-link-right breadcrumb bg-dark btn btn-secondary">
 						{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 							<li class="breadcrumb-item bg-dark">
 								{{ app.user.prenom }}
-								||<a class=" text-warning  " href="#">logout</a>
+								||<a class=" text-secondary  " href="#">logout</a>
 							</li>
 						{% else %}
 							<li class="breadcrumb-item bg-dark">
-								<a class=" text-warning  " href="#"><i class="fas fa-gamepad"></i>login</a>
+								<a class=" text-secondary  " href="{{ path('app_login') }}"><i class="fa fa-user-o" aria-hidden="true"></i>login</a>
 							</li>
 							<li class="breadcrumb-item bg-dark">
-								<a class=" text-warning  " href="{{ path('app_register') }}"><span class="fa fa-pencil"></span>sign up</a>
+								<a class=" text-secondary  " href="{{ path('app_register') }}"><span class="fa fa-pencil"></span>sign up</a>
 							</li>
 						{% endif %}
-						<li class="breadcrumb-item bg-dark">
-							<a class=" text-warning  " href="#">PLAY NOW</a>
-						</li>
+						
 
 					</ul>
 
@@ -124,20 +143,17 @@
 		{% block footer %}
 			<!--FOOTER-->
 			<footer>
-				<section>
-					<div class=" text-center text-warning bg-dark">
-						<div class="">
-							<a class="navbar-brand" href="#">
-								<span class="navbar-logo">
-									<img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></span>
+				
+					<div class=" text-center text-secondary  bg-dark">
+						<div class="logofooter">
+							<a class="navbar-brand" href="{{ path('homepage') }}">
+								<img src="{{ asset('asset/image/logo/purple3.jpg') }}" alt="logo">
 							</a>
-						</div>
-
-						<div class="">
+						
 							<h5 class="">World Escap</h5>
 							<p class="">With supporting text below as a natural lead-in to additional content.</p>
-							<a href="#" class="alert-link-secondary">
-								Contact |
+							<a href="{{ path('contact_index') }}" class="alert-link-secondary">
+									Contactez-nous |
 							</a>
 							<a href="#" class="alert-link-secondary">
 								A propos |
@@ -149,18 +165,19 @@
 								Politique de confidentialité  |
 							</a>
 						</div>
+
 						<div class="socials">
 							<h5>
 								<i>Suivez nous sur les réseaux sociaux !</i>
 							</h5>
 
 							<ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
-								<li class="nav-item text-warning">
+								<li class="nav-item text-primary">
 									<a class="nav-link" href="">
 										<i class="fa fa-facebook mr-1"></i>
 									</a>
 								</li>
-								<li class="nav-item text-warning">
+								<li class="nav-item text-primary">
 									<a class="nav-link" href="">
 										<i class="fa fa-twitter"></i>
 									</a>
@@ -171,19 +188,20 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				
 			</footer>
 		{% endblock %}
 
 		{% block javascripts %}
+
 			<script src="https://kit.fontawesome.com/43344efc3e.js" crossorigin="anonymous"></script>
 			<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.js') }}"></script>
-			<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+			
 
 		{% endblock %}
+		
 
 	</body>
 </html>
