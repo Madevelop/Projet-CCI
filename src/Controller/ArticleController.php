@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Form\ArticleType;
+use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,17 +23,17 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
-        return $this->render('article/index.html.twig', [
+        return $this->render('article/index_admin.html.twig', [
             'articles' => $articleRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/", name="article_articles", methods={"GET"})
+     * @Route("/", name="article_index", methods={"GET"})
      */
     public function article(ArticleRepository $articleRepository): Response
     {
-        return $this->render('article/articles.html.twig', [
+        return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
             
         ]);
@@ -60,14 +63,34 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/{id}", name="article_show")
+     * @param Article $Article
+     * @param Comment $Comment
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
      */
-    public function show(Article $article): Response
+    public function show(Article $article, Request $request): Response
     {
-        return $this->render('article/show.html.twig', [
-            'article' => $article,
+        $comment = new Comment();
+        $comment->setArticle($article);
+        $postedAt=  $comment->getPostedAt();
+  
+
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($comment);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute("article_show", ["id" => $article->getId()],
+        );
+        }
+        return $this->render("article/show.html.twig", [
+            "article" => $article,
+            "form" => $form->createView(),
+            "postedAt"=> $postedAt->format('Y-m-d H:i:s')
         ]);
     }
+  
 
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
@@ -102,4 +125,6 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
+
+ 
 }
