@@ -21,7 +21,8 @@ class CommentType extends AbstractType
     {
         $builder
             ->add("author", TextType::class, [
-                "label" => "Pseudo :"
+                "label" => "Pseudo :",
+                'disabled' =>'true'
             ])
             ->add("content", TextareaType::class, [
                 "label" => "Votre message :"

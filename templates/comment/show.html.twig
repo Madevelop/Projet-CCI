@@ -3,7 +3,7 @@
     {% for comment in article.comments %}
         <div class="col-9">
         <!-- Comment-->    
-        <h4> {{ comment.author }}</h4>
+        <h4> {{ app.user.pseudo}}</h4>
             <div>
                 {{comment.content}}
                 <footer class="blockquote-footer">
