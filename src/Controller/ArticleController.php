@@ -8,7 +8,6 @@ use App\Form\ArticleType;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,30 +63,27 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", name="article_show")
-     * @param Article $Article
-     * @param Comment $Comment
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
+     * 
      */
     public function show(Article $article, Request $request): Response
     {
         $comment = new Comment();
         $comment->setArticle($article);
         $postedAt=  $comment->getPostedAt();
-  
 
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute("article_show", ["id" => $article->getId()],
+            return $this->redirectToRoute('article_show', ["id" => $article->getId()],
         );
+
+        
         }
         return $this->render("article/show.html.twig", [
             "article" => $article,
             "form" => $form->createView(),
-            "postedAt"=> $postedAt->format('Y-m-d H:i:s')
+            "postedAt"=> $postedAt->format('d-m-y H:i'),
         ]);
     }
   
@@ -125,6 +121,5 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
-
  
 }

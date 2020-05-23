@@ -1,45 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}
+  Article
+{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
+    <!--Article-->
+    <div class="jumbotron">
+            <h1 class="display-3">
+            {{ article.titre }}
+            </h1>
+            <p class="lead">{{ article.contenu }}</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ article.titre }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ article.contenu }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ article.auteur }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
- {% for comment in article.comments %}
-            <li>{{ comment.author }} : {{ comment.content }} {{ comment.postedAt|date('Y-m-d H:i:s')}}/li>
-        {% endfor %}
-
- {{ form_start(form) }}
-   
-        {{ form_row(form.author) }}
-        {{ form_row(form.content) }}
-        <button type="submit">Envoyer</button>
-    {{ form_end(form) }}
-
-    <a href="{{ path('article_index') }}">Retour</a>
-
+            <footer class="blockquote-footer">
+            <cite title="Source Title">
+                {{ article.auteur }}, le {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s'): '' }}
+            </cite>
+            </footer>
+            <p><a class="btn btn-md btn-success" href="#comment" role="button">Donner votre avis</a></p>
+    </div>
+    <!--Commentaires-->
+        {{ include('comment/show.html.twig') }}
+  
+    <a href="{{ path('article_index')}}">Retour</a>
 {% endblock %}
+

@@ -16,9 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CommentType extends AbstractType
 {
-    /**
-     * @inheritDoc
-     */
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -32,9 +30,7 @@ class CommentType extends AbstractType
        
     }
 
-    /**
-     * @inheritDoc
-     */
+   
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefault("data_class", Comment::class);
