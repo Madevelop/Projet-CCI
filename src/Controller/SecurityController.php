@@ -5,12 +5,9 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,9 +46,8 @@ class SecurityController extends AbstractController
      */
     public function forgottenPassword(
         Request $request, 
-        UserPasswordEncoderInterface $encoder,
         \Swift_Mailer $mailer,
-        TokenGeneratorInterface $tokenGenerator,UserRepository $pseudo
+        TokenGeneratorInterface $tokenGenerator
     ): Response {
 
         if ($request->isMethod('POST')) {
@@ -63,7 +59,7 @@ class SecurityController extends AbstractController
 
             if ($user === null) {
                 $this->addFlash('danger', 'Email Inconnu');
-                return $this->redirectToRoute('homepage');
+                return $this->redirectToRoute('app_forgotten_password');
             }
 
             $token = $tokenGenerator->generateToken();
@@ -83,7 +79,6 @@ class SecurityController extends AbstractController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        // templates/hello/email.txt.twig
                         'emails/email.html.twig',
                         ['lien' => $url]
                     )
@@ -91,8 +86,8 @@ class SecurityController extends AbstractController
             $mailer->send($message);
 
             $this->addFlash('notice', 'Mail envoyé');
-
-            // return $this->redirectToRoute('homepage');
+            
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('security/forgotten_password.html.twig');

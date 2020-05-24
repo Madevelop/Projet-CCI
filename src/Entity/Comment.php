@@ -19,7 +19,7 @@ class Comment
 
     /**
      * @var string
-     * @ORM\Column (nullable=true)
+     * @ORM\Column 
      */
     private $author;
 

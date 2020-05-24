@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -24,10 +25,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('pseudo')
+            ->add('pseudo',TextType::class)
             ->add('age', BirthdayType::class, [
                 'placeholder' => [
-                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
+                    'year'=>'Année',
+                    'month' => 'Mois',
+                    'day' => 'Jour',
                 ]
             ])
             ->add('avatar', FileType::class)
@@ -43,9 +46,10 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
                 'mapped' => false,
+                'trim'=>true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer votre mot de passe',
                     ]),
                     new Length([
                         'min' => 6,

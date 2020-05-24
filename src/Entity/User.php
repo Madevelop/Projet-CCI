@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -78,9 +80,17 @@ class User implements UserInterface
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contact", inversedBy="users")
+     */
+    private $contacts;
+
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->comments = new ArrayCollection();
+        $this->contact = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,4 +270,19 @@ class User implements UserInterface
     {
         $this->resetToken = $resetToken;
     }
+/**
+     * @return Contact
+     */
+    public function getContacts(): ?Contact
+    {
+        return $this->contacts;
+    }
+
+    public function setContacts(?Contact $contacts): self
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
 }
