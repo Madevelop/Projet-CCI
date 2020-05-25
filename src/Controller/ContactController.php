@@ -2,11 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
-use App\Form\ContactType;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends AbstractController
@@ -16,62 +14,50 @@ class ContactController extends AbstractController
      * @Route("/contact", name="contact", methods={"GET","POST"})
      *  
      */
-    public function index(Request $request, \Swift_Mailer $mailer): Response
+    public function index(User $user): Response
     {
-        $contact = new Contact;
-        $form = $this->createForm(ContactType::class, $contact);
-        $form->handleRequest($request);
-        $pseudo = $contact->getName();
+        if (!empty($_POST['submitted'])) {
+
+            // faille XSS
+            $pseudo = trim(strip_tags($_POST['pseudo']));
+            $email = trim(strip_tags($_POST['email']));
+            $sujet = trim(strip_tags($_POST['sujet']));
+            $message = trim(strip_tags($_POST['message']));
 
 
-        if ($request->isMethod('POST')) {
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($contact);
-                $entityManager->flush();
+            if (isset($pseudo) && isset($email) && isset($sujet) && isset($message)) {
 
                 //message de l'utilisateur
-                $message = (new \Swift_Message('Envie de nous dire quelques mots ? '))
-                    ->setSubject($contact->getSujet())
-                    ->setFrom($contact->getMail())
-                    ->setTo('mvsq.wordlescape@gmail.com')
-                    ->setBody(
-                        $contact->getMessage()
-                    );
-                $mailer->send($message);
+  
+                $to        = 'mvsq.wordlescape@gmail.com';
+                $subject   = 'Inscription';
+                $message   = 'Bonjour ' . $user->getPseudo() . ', nous vous répondrons dès que possible';
+                $headers   = 'from :' . $user->getEmail() . 'X-Mailer: PHP/' . phpversion();
 
-                //message de confirmation d'envoi du mail                
-                $messageConfirmation = (new \Swift_Message(''))
-                    ->setFrom('mvsq.wordlescape@gmail.com')
-                    ->setTo($contact->getMail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/_contact.html.twig',
-                            ['name' => $pseudo]
-                        )
-                    );
-                $mailer->send($messageConfirmation);
+                mail($to,  $subject,  $message, $headers);
+      
+
+                //message de l'Admin
                 
-               return $this->redirectToRoute('homepage');
-               
-               /*Vue du message envoyé par l'utilisateur
-               return $this->render('contact/_admin.html.twig', [
-                    'contact' =>  $message,
-                ]);*/
+                $to        = $user->getEmail();
+                $subject   = 'Inscription';
+                $messageConfirmation   = 'Bonjour ' . $user->getPseudo() . ', nous vous répondrons dès que possible';
+                $headers   = 'from :mvsq.wordlescape@gmail.com' . 'X-Mailer: PHP/' . phpversion();
+
+                mail($to,  $subject,  $message, $headers);
+
+                $this->addFlash('notice', 'Mail envoyé');
+
+                // return $this->redirectToRoute('homepage');
+
+                /*Vue du message envoyé par l'utilisateur*/
+                return $this->render('contact/_admin.html.twig', [
+                    'contactUser' =>  $message,
+                    'contactAdmin' => $messageConfirmation,
+                ]);
             }
-
-
-
             $this->addFlash('notice', 'Mail envoyé');
         }
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createView(),
-
-
-
-        ]);
-    
+        return $this->render('contact/index.html.twig');
     }
 }

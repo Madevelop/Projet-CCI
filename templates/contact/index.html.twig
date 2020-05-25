@@ -6,59 +6,49 @@
 
     {% block body %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-         
             <div class="container center">
                 <h1>Contact</h1>
-            
-            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
-                    <div class="form-group ">
-                    <label for="staticPseudo">Pseudo</label>
-                    <input type="text"
-                        class="form-control" value="{{app.user.pseudo}}" id="staticPseudo"  readonly>
-                        <div class=" invisible">
-                            {{ form_row(form.name, {'attr':
-                                {'value':app.user.pseudo}}
-                                ) }}
-                        </div>
-                    </div> 
-                
-                    <div class="form-group">
-                    <label for="staticEmail">Email</label>
-                    <input 
-                        class="form-control" value="{{app.user.email}}" id="staticEmail"  readonly>
-                        <div class=" invisible">
-                            {{ form_row(form.mail, {'attr':
-                                {'value':app.user.email}}
-                                ) }}
-                        </div>
-                    </div> 
-                    
-                    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-                        {{ form_row(form.sujet,{'attr':
-                                {'placeholder':'C\'est à quel sujet ?'}}) }}
-                    </div>
-                    <div class="input-field col s12 m6 l6 offset-m3 offset-l3">
-                        {{ form_row(form.message,{'attr':
-                                {'placeholder':'Raconte-moi tout ...'}}) }}           
-                    <div class="input-field col s12">
-                        <input type="submit" name="" class="btn btn-primary" value="Envoyer">
-                    </div>
-                {{ form_end(form) }}
-            </div> 
-        {% else %}        
 
-          
+            <form methode="POST" action="mail.php">
+                <label for="staticPseudo">Pseudo</label>
+                <input type="text"class="form-control" value="{{app.user.pseudo}}" id="staticPseudo"  readonly>
+                <div name ="pseudo" class="input-field invisible">{{app.user.pseudo}}</div>
+                                    
+
+                <label for="staticEmail">Email</label>
+                <input type="text"class="form-control" value="{{app.user.email}}" id="staticEmail"  readonly>
+                <div name ="email" class="input-field invisible"> {{app.user.email}}</div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Sujet</label>
+                    <select name ="sujet" class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>Autres</option>
+                    
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Message</label>
+                    <textarea name ="message" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Raconte-moi tout ..."></textarea>
+                </div>
+
+                <div class="input-field col s12">
+                    <input type="submit" name="submitted" class="btn btn-primary" value="Envoyer">
+                </div>
+            </form>
+        {% else %}        
             <div>Pour nous contacter veuillez vous identifier</div>
                 <a  class="btn btn-primary" data-toggle="modal" data-target="#connexion" href="{{ path('app_login')}}"> Connexion</a>
-                             <!-- Modal -->
+                          
                     <div class="modal fade" id="connexion">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             {{ render(controller('App\\Controller\\SecurityController::login'))}}                                </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
+                        </div>
+                    </div>
                 <a href="{{ path('app_register')}}" class="btn btn-primary">S'inscrire</a>
-  
       {% endif %}  
        
     {% endblock %}
