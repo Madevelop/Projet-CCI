@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -16,17 +17,14 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add(
-                'roles',
-                ChoiceType::class,
-                [
-                    'choices' =>
-                    [
-                        'USER' => 'ROLE_USER',
-                        'ADMIN' => 'ROLE_ADMIN',
-                        'SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
-                    ],
+            ->add('email', EmailType::class,[
+                'trim'=>true,
+            ])
+            ->add('roles',ChoiceType::class,[
+                    'choices' =>[
+                    'USER' => 'ROLE_USER',
+                    'ADMIN' => 'ROLE_ADMIN',
+                    'SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',],
                     'expanded'  => true,
                     'multiple' => true
                 ]
@@ -35,8 +33,11 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
-            ])
-            ->add('pseudo')
+                'trim'=>true,
+                ])
+            ->add('pseudo',TextType::class,[
+                'trim'=>true,
+                ])
             ->add('age')
             ->add('bp')
             ->add('avatar')
