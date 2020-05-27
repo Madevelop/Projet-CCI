@@ -1,9 +1,0 @@
-easy_admin:
-    entities:
-       Jeu:
-            class: App\Entity\Jeu
-            form:
-                fields:
-                    - {property: 'id'}
-                    - {property: 'user_id'}
-                    - {property: 'score'}

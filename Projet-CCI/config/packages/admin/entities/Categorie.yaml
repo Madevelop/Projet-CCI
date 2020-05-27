@@ -1,7 +1,0 @@
-easy_admin:
-    entities:
-        Categorie:
-            class: App\Entity\Categorie
-            form:
-                fields:
-                    - {property: 'nom'}
