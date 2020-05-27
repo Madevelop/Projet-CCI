@@ -1,0 +1,11 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'News'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'User', icon: 'inbox', label: 'Utilisateur'}
+                  - {entity: 'Article', icon: 'inbox', label: 'Article'}
+                  - {entity: 'Produit', icon: 'inbox', label: 'Produit'}
+                  - {entity: 'Jeu', icon: 'inbox', label: 'Jeu'}
+

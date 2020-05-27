@@ -1,0 +1,19 @@
+
+
+<div class="formCom jumbotron" id="comment">
+    {{ form_start(form) }}
+          <div class="form-group ">
+                    <label for="staticPseudo">Pseudo</label>
+                    <input type="text"
+                        class="form-control" value="{{app.user.pseudo}}" id="staticPseudo"  readonly>
+                        <div class=" invisible">
+                            {{ form_row(form.author, {'attr':
+                                {'value':app.user.pseudo}}
+                                ) }}
+                        </div>
+                    </div> 
+        {{ form_row(form.content) }}
+       <button class="btn btn-success" type="submit">Valider</button>
+    {{ form_end(form) }}
+</div>
+

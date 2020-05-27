@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+	<div class="panierIndex">
+
+		<h1>Votre panier</h1>
+		<h2>Vous avez
+			{{ app.user.bp}}
+			BP</h2>
+
+	{% if items | length > 0 %}
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th>Total</th>
+					<th>Suprimer</th>
+					<th>bpuser</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in items %}
+					{% if app.user.bp < item.produit.prix * item.quantité %}
+						<p id="alertNoMoney" class="none" style="background-color:red">Il vous manque
+							{{ item.produit.prix * item.quantité - app.user.bp }}
+							BP
+						</p>
+					{% endif %}
+					<tr>
+						<td>{{ item.produit.nom }}</td>
+						<td>{{ item.produit.prix }}</td>
+						<td>{{ item.quantité }}</td>
+						<td>{{item.produit.prix * item.quantité }}</td>
+
+						<td>
+							<a href="{{ path('cart_remove', {'id':item.produit.id}) }}">
+								<button type="button" class="btn btn-danger">Suprimer</button>
+							</a>
+						</td>
+						{% if app.user.bp >= item.produit.prix * item.quantité %}
+							<td>
+								<a href="{{ path('cart_buy', {'id':item.produit.id}) }}">
+									<button type="button" class="btn btn-success">Acheter</button>
+								</a>
+							</td>
+						{% else %}
+							<td>
+								<button id="noMoney" type="button" class="btn btn-danger">{{ item.produit.prix * item.quantité - app.user.bp }}</button>
+							</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfooter>
+				<th></th>
+				<td colspan="2" class="text-right">Total :</td>
+				<td>
+					{{ total }}</td>
+
+			</th>
+		</tfooter>
+	</table>
+{% else %}
+	<p>Surprise, c'est vide !</p>
+
+{% endif %}
+	</div>
+{% block javascripts %}
+
+	<script>
+
+		var alertNoMoney = document.getElementById('alertNoMoney');
+var noMoney = document.getElementById('noMoney');
+
+noMoney.addEventListener("click", function () {
+alertNoMoney.classList.remove('none');
+alertNoMoney.classList.add('block');
+});
+	</script>
+{% endblock %}{% endblock %}
