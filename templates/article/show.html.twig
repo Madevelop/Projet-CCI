@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Article
+{% endblock %}
+
+{% block body %}
+	<div
+		class="backgroundShowArticle">
+		<!--Article-->
+		<div class="articleShow_popArticle d-flex justify-content-center flex-wrap">
+			<div class=" d-flex flex-column align-items-center  articleShow">
+				<div class="articleShow__title">
+					<h1 class="display-3 h1ArticleShow">
+						{{ article.titre }}
+					</h1>
+					<cite title="Source Title">
+						<span style="color:orange; text-transform:capitalize">
+							{{ article.user.pseudo }}</span>
+						|
+						{{ article.createdAt ? article.createdAt|date('Y-m-d'): '' }}
+					</cite>
+				</div>
+				<img style="width:100%" class="" src="{{ asset('images/article/')}}{{ article.imagename }}" alt="">
+				<p class="lead">{{ article.contenu }}</p>
+
+				<p>
+					<a class="btn btn-md btn-warning" href="#comment"  {% if not is_granted('IS_AUTHENTICATED_FULLY') %} onclick="return alert('Veuillez-vous connecter');"{% endif %} role="button">Donner votre avis</a>
+				</p>
+
+
+			</div>
+
+			<div class="popArticle">
+				<h1>
+					Articles Recents
+				</h1>
+				{% for article in articleFours %}
+
+					<hr class="popArticle--hr">
+                    <a href="{{ path('article_show', {'id': article.id}) }}">
+					<div class="popArticle__articles d-flex">
+						<div class="d-flex">
+							<div class="popImg">
+								<img style="height:50px; width:100px" class="mr-3" src="{{ asset('images/article/')}}{{ article.imagename }}" alt="">
+							</div>
+							<div class="popArticle__titlePseudo d-flex flex-column">
+								<div>{{ article.titre }}</div>
+								<div>
+									<span style="color:orange; text-transform:capitalize">{{ article.user.pseudo }}</span>
+										|
+										{{ article.createdAt ? article.createdAt|date('Y-m-d'): '' }}</div>
+								</div>
+							</div>
+						</div>
+
+</a>
+					{% endfor %}
+                 
+				</div>
+			</div>
+            <div class="articleShow__com">
+				<!--Commentaires-->
+				{{ include('comment/show.html.twig') }}
+</div>
+				<a href="{{ path('article_index')}}">Retour</a>
+            </div>
+		{% endblock %}
