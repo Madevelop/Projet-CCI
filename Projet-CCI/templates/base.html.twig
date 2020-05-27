@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<script src="https://use.fontawesome.com/8abbb8b17b.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ asset('asset/css/main.css') }}">
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="{{ asset('asset/js/menu.js') }}"></script>
+
+		{% block stylesheets %}{% endblock %}
+
+	</head>
+	<body>
+		<nav id="nav" class="navbar navbar-expand-lg navbar-dark fixed-top">
+			<a class="navbar-brand" href="{{ path('homepage') }}"><img src="{{ asset('images/avatar/logo.png') }}" style="width:auto; height:40px;"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							World Escape
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="{{ path('world_escape') }}">JOUER !</a>
+							<a class="dropdown-item" href="#">Règles</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Actualité
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="{{ path('article_index') }}">News</a>
+							<a class="dropdown-item" href="#">Patch Note</a>
+						</div>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('jeu_index') }}">Leaderboard</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('produit_index') }}">Boutique</a>
+					</li>
+				</ul>
+
+
+				<ul class="navbar-nav my-2 my-lg-0">
+
+					{% if is_granted('ROLE_USER') %}
+						<li class="nav-item active"><img src="{{ asset('images/money.svg')}}" style="width:auto; height:40px;"></li>
+						{% if app.user.bp == '' %}
+							<li class="nav-item active mr-3">
+								<a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">0 BP</a>
+							</li>
+						{% else %}
+							<li class="nav-item active">
+								<a class="nav-link mr-3" href="{{ path('user_show', {'id': app.user.id}) }}">{{ app.user.bp }}
+									BP</a>
+							</li>
+						{% endif %}
+						<li class="nav-item active"><img src="{{ asset('images/avatar/')}}{{ app.user.avatar }}" style="width:auto; height:40px;"></li>
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">{{ app.user.pseudo }}</a>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item active">
+								<a class="nav-link" href="{{ path('easyadmin') }}">Admin</a>
+							</li>
+						{% endif %}
+					{% else %}
+						<a style="color:white" id="connect" class="nav-link" href="" data-toggle="modal" data-target="#modalLoginForm">
+							<li class="nav-item active">Connexion</li>
+						</a>
+						<a style="color:white" class="nav-link" href="{{ path('app_register') }}">
+							<li class="nav-item active">Inscription</li>
+						</a>
+					{% endif %}
+				</ul>
+			</nav>
+
+
+
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+							<div class="alert alert-success alert-dismissible fade show text-center" style="margin-top:5em; position:absolute; width:100%; border-radius:none !important" role="alert">
+				{{ message }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+				{% endfor %}
+			{% endfor %}
+
+
+			<form method="post" action="{{ path('app_login')}}">
+
+
+				<div style="display:none;" class="modal fade mt-5" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header text-center">
+								<h4 class="modal-title w-100 font-weight-bold">Connexion</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body mx-3">
+								<div class="md-form mb-5">
+									<i class="fas fa-envelope prefix grey-text"></i>
+									<label id="inputEmail" data-error="wrong" data-success="right" for="inputEmail">Email</label>
+									<input type="email" name="email" id="login" value="" class="form-control validate" required autofocus>
+								</div>
+
+								<div class="md-form mb-4">
+									<i class="fas fa-lock prefix grey-text"></i>
+									<label data-error="wrong" data-success="right" for="inputPassword">Password</label>
+									<input type="password" name="password" id="inputPassword" class="form-control validate" required>
+
+								</div>
+
+							</div>
+
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+							<div class="modal-footer d-flex justify-content-center">
+								<button type="submit" class="btn btn-default">Valider</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+
+			{% block body %}{% endblock %}
+
+
+			<footer class="bg-dark">
+
+				<div class="card text-center text-light bg-dark footerPos">
+					<div class="card-header footerPos ">
+						<a class="navbar-brand" href="#">
+							<span class="navbar-logo">
+								<img src="{{ asset('image/logoW(Copy)(2).png') }}" alt=""></span>
+						</a>
+					</div>
+
+					<div class="card-body">
+						<h5 class="card-title">World Escap</h5>
+						<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+						<a href="#" class="alert-link-secondary">
+							Contact |
+						</a>
+						<a href="#" class="alert-link-secondary">
+							A propos |
+						</a>
+						<a href="{{ path('mentions') }}" class="alert-link-secondary">
+							Mentions Légales |
+						</a>
+						<a href="#" class="alert-link-secondary">
+							Politique de confidentialité  |
+						</a>
+					</div>
+					<div class="socials">
+						<h5>
+							<i>Suivez nous sur les réseaux sociaux !</i>
+						</h5>
+
+						<ul class="nav navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
+							<li class="nav-item text-warning">
+								<a class="nav-link" href="">
+									<i class="fa fa-facebook mr-1"></i>
+								</a>
+							</li>
+							<li class="nav-item text-warning">
+								<a class="nav-link" href="">
+									<i class="fa fa-twitter"></i>
+								</a>
+							</li>
+						</ul>
+						<div class="card-footer text-muted">
+							05-05-2020 Vernon team: MVQS
+						</div>
+					</div>
+				</div>
+
+
+			</footer>
+
+			{% block javascriptss %}
+
+
+				<script>
+					var aconnect = document.getElementById('connect');
+var modalLoginForm = document.getElementById('modalLoginForm');
+
+
+nav.addEventListener('click', function () {})
+
+aconnect.addEventListener('click', function () {
+
+modalLoginForm.style.display = "none";
+});
+				</script>
+			{% endblock %}
+		</body>
+	</body>
+</html></body></html>

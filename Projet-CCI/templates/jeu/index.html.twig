@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu index{% endblock %}
+
+{% block body %}
+
+<div class="backgroundLeader">
+</div>
+{% if is_granted('ROLE_USER') %}
+{% if  scoreUser == "" %}
+<div class="d-flex" style="padding-top:15em"></div>
+{% else %}
+    <div class="d-flex justify-content-center align-items-center titleLeader mt-5">
+        <h1 class="">MON CLASSEMENT</h1>
+
+    </div>
+<div class="row  mt-4">
+
+    <div class="col-10 mx-auto">
+
+<div class="borderTable">
+    <table class="table tableLeader" >
+        <thead class="text-center trou">
+            <tr class="trLeader trTop">
+                <th class="thLeader">Rank</th>
+                <th class="thLeader">Pseudo</th>
+                <th class="thLeader">Avatar</th>
+                <th class="thLeader">Date</th>
+                <th class="thLeader">Rank</th>
+                <th class="thLeader">Score</th>
+                <th class="thLeader">Profil</th>
+                <!-- <th>actions</th> -->
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+           {% for jeu in rankUser %}
+    {% set rankUser = loop.index - 1 %}
+    {% if jeu.user == app.user %}
+            <tr class="trLeader">
+                <td class="align-middle tdLeaderUser">{{ rankUser +1}}</td>
+                <td class="align-middle tdLeaderUser">{{ jeu.user.pseudo}}</td>
+                 <td class="align-middle tdLeaderUser"><img src="{{ asset('images/avatar/')}}{{ jeu.user.avatar }}" style="width:auto; height:50px;"></td>
+                 <td class="align-middle tdLeaderUser">{{ jeu.user.createdAt ? jeu.user.createdAt|date('d/m/Y') : '' }}</td>
+                 {% if jeu.score <= 60 %}
+                <td class="align-middle tdLeaderUser"><img src="{{ asset('images/world_escape/rank/1.png')}}"  style="width:auto; height:50px;"></td>
+                {% elseif jeu.score > 60 and jeu.score < 200 %}
+                <td class="align-middle tdLeaderUser"><img src="{{ asset('images/world_escape/rank/2.png')}}"  style="width:auto; height:50px;"></td>
+                {% elseif jeu.score > 200 and jeu.score < 2000 %}
+                <td class="align-middle tdLeadeUserr"><img src="{{ asset('images/world_escape/rank/3.png')}}"  style="width:auto; height:50px;"></td>
+                {% else %}
+                <td class="align-middle tdLeaderUser"><img src="{{ asset('images/world_escape/rank/4.png')}}"  style="width:auto; height:50px;"></td>
+                {% endif %}
+                <td class="align-middle tdLeaderUser">{{ jeu.score }}</td>
+                <td class="align-middle tdLeaderUser"><a href="{{ path('user_show', {'id': jeu.user.id}) }}"><button>Profil</button></a> </td>
+             </div>
+</div>
+    
+            </tr>
+
+           {% endif %}
+    {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+</div>
+ {% endif %}
+
+ {% endif %}
+ 
+    {% for jeu in rankUser %}
+    {% set rankUser = loop.index - 1 %}
+    {% if jeu.user == app.user %}
+    <h1 class="">{{ jeu.user}}{{ rankUser +1}}</h1>
+    {% endif %}
+    {% endfor %}
+
+    <div class="d-flex justify-content-center align-items-center titleLeader mt-5">
+        <h1 class="">LEADERBOARD WORLDESCAPE</h1>
+
+    </div>
+
+
+
+<div class="row  mt-2">
+
+    <div class="col-10 mx-auto">
+
+    <table class="table tableLeader" >
+        <thead class="text-center trou">
+            <tr class="trLeader trTop">
+                <th class="thLeader">Rank</th>
+                <th class="thLeader">Pseudo</th>
+                <th class="thLeader">Avatar</th>
+                <th class="thLeader">Date</th>
+                <th class="thLeader">Rank</th>
+                <th class="thLeader">Score</th>
+                <th class="thLeader">Profil</th>
+                <!-- <th>actions</th> -->
+            </tr>
+        </thead>
+        <tbody class="text-center">
+
+        {% for jeu in score %}
+         {% set num = loop.index - 1 %}
+            <tr class="trLeader">
+                <td class="align-middle tdLeader">{{ num + 1 }}</td>
+                <td class="align-middle tdLeader">{{ jeu.user.pseudo }}</td>
+                 <td class="align-middle tdLeader"><img src="{{ asset('images/avatar/')}}{{ jeu.user.avatar }}" style="width:auto; height:50px;"></td>
+                 <td class="align-middle tdLeader">{{ jeu.user.createdAt ? jeu.user.createdAt|date('d/m/Y') : '' }}</td>
+                 {% if jeu.score <= 60 %}
+                <td class="align-middle tdLeader"><img src="{{ asset('images/world_escape/rank/1.png')}}"  style="width:auto; height:50px;"></td>
+                {% elseif jeu.score > 60 and jeu.score < 200 %}
+                <td class="align-middle tdLeader"><img src="{{ asset('images/world_escape/rank/2.png')}}"  style="width:auto; height:50px;"></td>
+                {% elseif jeu.score > 200 and jeu.score < 2000 %}
+                <td class="align-middle tdLeader"><img src="{{ asset('images/world_escape/rank/3.png')}}"  style="width:auto; height:50px;"></td>
+                {% else %}
+                <td class="align-middle tdLeader"><img src="{{ asset('images/world_escape/rank/4.png')}}"  style="width:auto; height:50px;"></td>
+                {% endif %}
+                <td class="align-middle tdLeader">{{ jeu.score }}</td>
+                <td class="align-middle tdLeader"><a href="{{ path('user_show', {'id': jeu.user.id}) }}"<button type="button" class="btn btn-outline-success">Profil</button> </td>
+             </div>
+</div>
+    
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+				<div class="navigation d-flex justify-content-center pagin mt-5">
+    {{ knp_pagination_render(score) }}
+</div>
+{% endblock %}
