@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nos Articles
+{% endblock %}
+
+{% block body %}
+
+	<div class="backgroundArticleIndex">
+		<div class="articleIndexTop">
+			{% for article in articles %}
+				<div class="articleIndex d-flex justify-content-center mx-auto align-item-between">
+					<div class="articleIndex_img mr-3">
+						<img class="articleImg" src="{{ asset('images/article/')}}{{ article.imagename }}" alt="Card image" style="height:140px; width:250px">
+					</div>
+
+					<div class="articleIndex_titleContentAuthorDateCom">
+						<a href="{{ path('article_show', {id: article.id}) }}">
+							<div class="articleIndex_titleContent">
+								<h3 style="color:#4B535D">{{ article.titre }}</h3>
+							</a>
+							<p style="font-size:0.8em">{{ article.resume }}</p>
+						</div>
+						<div class="articleIndex_AuthorDateCom d-flex justify-content-between">
+							<div>
+								<span style="color:orange; text-transform:capitalize">{{ article.user.pseudo }}</span>
+								|
+								{{ article.createdAt ? article.createdAt|date('Y-m-d'): '' }}</div>
+							<div>{{ article.comments|length }}
+								commentaire(s)</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<hr class="hrArticleIndex">
+			{% endfor %}
+				<div class="navigation d-flex justify-content-center pagin mt-5">
+    {{ knp_pagination_render(articles) }}
+</div>
+
+			{% block javascripts %}
+				<script src="{{ asset('asset/js/homepage.js') }}"></script>
+
+				<script></script>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
