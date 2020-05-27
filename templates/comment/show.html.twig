@@ -19,14 +19,15 @@
 						</div>
 					</div>
 					<!--Delete/Update Comment-->
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						<div class="d-flex">
+                    			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        			{% if (comment.author) == (app.user.pseudo) %}
+                        			<div class="d-flex">
+                            			<a style="color:#FFC107" class="btn" href="{{ path('comment_edit', {'id': comment.id}) }}" target="_top">modifier</a>
+                            		{{ include('comment/_delete_form.html.twig') }}
 
-							<a style="color:#FFC107" class="btn" href="{{ path('comment_edit', {'id': comment.id}) }}" target="_top">modifier</a>
-							{{ include('comment/_delete_form.html.twig') }}
-
-						</div>
-					{% endif %}
+                        </div>
+                            {% endif %}
+                    {% endif %}
 				</div>
 			</div>
 		{% endfor %}
