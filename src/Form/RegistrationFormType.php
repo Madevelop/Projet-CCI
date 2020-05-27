@@ -69,7 +69,6 @@ class RegistrationFormType extends AbstractType
                 'placeholder' => 'pays',
                 'choices' => Countries::getNames(),
                 'preferred_choices' => ['FR'],
-                'choice_loader' => null,
                 'choice_translation_locale' => null,
             ])
             ->add('plainPassword', RepeatedType::class, [
