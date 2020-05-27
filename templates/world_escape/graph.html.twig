@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu index
+{% endblock %}
+{% block stylesheets %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    {% endblock %}
+
+    {% block body %}
+
+<div class="col-10 mx-auto">
+       <canvas id="myChart" style="height:50px weight:500px background-color:red"></canvas>
+         {% for jeu in score %}
+    <input class="lol" type="hidden" name="test" value="{{ jeu.score }}">
+    <input class="pseudo" type="hidden" name="" value="{{ jeu.user.pseudo }}">
+    {% endfor %}
+    </div>
+        {% block javascripts %}
+
+            <script>
+
+ var test = document.getElementsByClassName("lol");
+    var tbScore = [];
+
+    function scorelol() {
+        for (let i = 0; i < test.length; i++) {
+            var lol = tbScore.push(test[i].value);
+        }
+    }
+    scorelol();
+
+    var pseudo = document.getElementsByClassName("pseudo");
+    var tbPseudo = [];
+
+    function pseudolol() {
+        for (let i = 0; i < pseudo.length; i++) {
+            var pseudoEach = tbPseudo.push(pseudo[i].value.toUpperCase());
+        }
+    }
+    pseudolol();
+
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: tbPseudo,
+        datasets: [{
+            label: 'TOP 10',
+            backgroundColor: 'rgba(255, 99, 132, 0.411)',
+            borderColor: 'rgba(255, 99, 132)',
+            data: tbScore
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+            </script>
+        {% endblock %}
+
+    {% endblock %}

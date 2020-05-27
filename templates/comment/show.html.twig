@@ -1,0 +1,43 @@
+{% block body %}
+
+		{% for comment in article.comments %}
+			<div class="showArticle__comment d-flex p-5">
+				<div class="d-flex justify-content-between" style="width:100%">
+					<div style="width:100%">
+						<!-- Comment-->
+						<h4 style="text-transform:capitalize">
+							{{ comment.author }}</h4>
+						<div style="width:100%">
+                     
+							<cite title="Source Title" ; style="font-size:0.8em">
+								<span style="color:#FFC107">#</span> {{ comment.postedAt ? comment.postedAt|date('d-m-y | H:i') : '' }}</cite>
+						</div>
+                           <hr class="showArticle--hr">
+						<div style="width:100%">
+							{{comment.content}}
+
+						</div>
+					</div>
+					<!--Delete/Update Comment-->
+                    			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        			{% if (comment.author) == (app.user.pseudo) %}
+                        			<div class="d-flex">
+                            			<a style="color:#FFC107" class="btn" href="{{ path('comment_edit', {'id': comment.id}) }}" target="_top">modifier</a>
+                            		{{ include('comment/_delete_form.html.twig') }}
+
+                        </div>
+                            {% endif %}
+                    {% endif %}
+				</div>
+			</div>
+		{% endfor %}
+
+		<!--Add Comment-->
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<div>
+			{{ include('comment/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+		{% endif %}
+
+
+{% endblock %}
